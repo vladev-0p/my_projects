@@ -1,6 +1,6 @@
 import operator
 
-list_string = ['315 - 150', '30 + 300', '100 + 300','4000 + 5000']
+list_string = ['315 - 150', '30 + 300', '100 + 300', '4000 + 5000']
 
 
 # string ='30 + 3300'
@@ -26,7 +26,7 @@ def calculate(list_string):
     top = ''
     mid = ''
     bot = ''
-    border=''
+    border = ''
 
     for i in list_string:
         compilex = eval(compile(i, 'string', 'eval'))
@@ -34,18 +34,20 @@ def calculate(list_string):
         num_one = i.split(' ')[0]
         operator = i.split(' ')[1]
         num_two = i.split(' ')[2]
-        if (len(num_two) or len(num_two))>5:
+        if (len(num_two) or len(num_two)) > 5:
             raise Exception('Неверный ввод')
         else:
-            add_top = (' ' * (5-len(num_one)) + num_one+' ')
-            add_mid = (operator + ' ' * (4 -len(num_two)) + num_two+' ')
-            add_border=(' '*(5-len(max(num_two,num_one))) + '_'*(max(len(num_two),len(num_one),len(compile_str))%5) +' ')
-            add_bot = (' ' * (5 - max(len(num_one), len(num_two)) % 5) + str(compilex)+' ')
+            add_top = (' ' * (5 - len(num_one)) + num_one + ' ')
+            add_mid = (operator + ' ' * (4 - len(num_two)) + num_two + ' ')
+            add_border = (' ' * (5 - len(max(num_two, num_one))) + '_' * (
+                        max(len(num_two), len(num_one), len(compile_str)) % 5) + ' ')
+            add_bot = (' ' * (5 - max(len(num_one), len(num_two)) % 5) + str(compilex) + ' ')
             top += add_top
             mid += add_mid
-            border +=add_border
+            border += add_border
             bot += add_bot
 
     print(f'{top}\n{mid}\n{border}\n{bot}\n')
+
 
 calculate(list_string)
