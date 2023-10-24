@@ -1,35 +1,34 @@
 import random
 import os
 import time
-from time import time
 from threading import Timer
 from inputimeout import inputimeout
 
-words = ['положение',
-         'трубка',
-         'присутствие',
-         'соединение',
-         'начальник',
-         'рубеж',
+words = ['condition',
+         'pipe',
+         'presence',
+         'connection',
+         'chief',
+         'border',
          'произведение',
-         'поселок',
-         'минута',
-         'безопасность',
-         'прошлое',
-         'ответ',
-         'слой',
-         'лошадь',
-         'девушка',
-         'врач',
-         'роман',
-         'февраль', 'автомобиль',
-         'депутат',
-         'малина',
-         'кошка',
-         'собака',
+         'village',
+         'minute',
+         'safety',
+         'past',
+         'answer',
+         'layer',
+         'horse',
+         'lady',
+         'doctor',
+         'roman',
+         'february', 'car',
+         'deputy',
+         'raspberry',
+         'cat',
+         'dog',
          ]
 
-m = int(input('Выберите число слов - '))
+m = int(input('Choose words amount - '))
 
 
 def timer_word(n):
@@ -45,9 +44,9 @@ while True:
     for i in random_list:
         print(i, end=' ', flush=True)
     timer_word(m)
-    answer = [input('Введите слова: ') for i in range(m)]
+    answer = [input('Enter words: ') for i in range(m)]
     if answer == random_list and m < 8:
-        print('верно')
+        print('Correct')
         num += 1
     if num == 2:
         m += 1
