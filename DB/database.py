@@ -21,39 +21,36 @@ with  sq3.connect(db_path) as db:
 
     #добавление записи
 
-    # c.execute("INSERT INTO books VALUES('Master i Margarita',350,'Bulgakov')")
+    #c.execute("INSERT INTO books VALUES('Master i Margarita',350,'Bulgakov')")
     # c.execute("INSERT INTO books VALUES('Onegin',350,'Pushkin')")
     # # c.execute("INSERT INTO books VALUES('Master i Margarita',350,'Bulgakov')")
-    # # c.execute("INSERT INTO books VALUES('Master i Margarita',350,'Bulgakov')")
+    c.execute("INSERT INTO books VALUES('petrov',350,'ivanov')")
     #
     c.execute("SELECT rowid, * FROM books ")
     #
-    # items= c.fetchall()
-    #print(c.fetchmany(2)) # 2 записи
+    items= c.fetchall()
+    print(c.fetchmany(2)) # 2 записи
     #print(c.fetchone()[2])
-
-    # for el in items:
-    #     print(str(el[0])+" "+str(el[1])+" "+ el[4])
-
-
+    for el in items:
+        print(str(el[0])+" "+str(el[1])+" "+ str(el[2]))
     #DELETE duplicates
-    c.execute(
-    """DELETE FROM books
-    WHERE    rowid not in
-             (
-             select  min(rowid)
-             from    books
-             group by name
-             ,       viewses
-             ,       author
-             )
-    """)
-    #UPDATEE data
-    c.execute("UPDATE books SET viewses=1500 WHERE author = 'Bulgakov' ")
+    # c.execute(
+    # """DELETE FROM books
+    # WHERE    rowid not in
+    #          (
+    #          select  min(rowid)
+    #          from    books
+    #          group by name
+    #          ,       viewses
+    #          ,       author
+    #          )
+    # """)
+    # #UPDATEE data
+    # c.execute("UPDATE books SET viewses=1500 WHERE author = 'Bulgakov' ")
     # c.execute("DELETE FROM books")
 
     #Delete data
-    #c.execute("DELETE FROM books WHERE rowid = 2")
+    c.execute("DELETE FROM books WHERE rowid = 1 ")
 
     #c.execute("DELETE FROM books WHERE name = 'Master i Margarite' ")
 
