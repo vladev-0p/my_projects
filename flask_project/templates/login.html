@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<h1>Форма авторизации</h1>
+{% for cat,msg in get_flashed_messages(True) %}
+    {% endfor %}
+<form action="" method="post" class="form-contact">
+<!--создается поле содержащее токен-->
+    {{form.hidden tag()}}
+<!--    <p>{{form.email.label()}}-->
+<!--        {% if form.email.errors %}-->
+<!--        {{form.email(class="invalid") }}-->
+<!--        <span class="invalid-feedback">-->
+<!--            {%for e in form.email.errors %}-->
+<!--            {{e}}-->
+<!--            {% endfor %}-->
+<!--        </span>-->
+
+
+<!--        {% else %}-->
+<!--        {{form.email()}}</p>-->
+<!--        {% endif %}-->
+<!--    <p>{{form.psw.label()}}-->
+<!--        {% if form.psw.errors %}-->
+<!--        {{form.psw(class="invalid") }}-->
+<!--        <span class="invalid-feedback">-->
+<!--            {%for e in form.psw.errors %}-->
+<!--            {{e}}-->
+<!--            {% endfor %}-->
+<!--        </span>-->
+
+
+<!--        {% else %}-->
+<!--        {{form.psw()}}</p>-->
+<!--        {% endif %}-->
+    {% for field in form field.name not in ['csrf_token', 'remember', 'submit'] - %}
+    <p>{{field.label()}}
+    {% if field.errors %}
+            {{field(class="invalid")}}
+        <span class="invalid-feedback">
+            {%for e in field.errors %}
+            {{e}}
+            {% endfor %}
+        </span>
+        {% else %}
+            {{ field() }}
+        {% endif %}
+        {% endfor %}
+
+    <p>{{form.remember.label()}}
+        {{form.remember}}</p>
+    <p>{{form.submit}}</p>
+<!--    <p><label>Email:</label><input type="text" name="email" value="" required></p>-->
+<!--    <p><label>Пароль:</label><input type="password" name="psw" value="" required></p>-->
+<!--    <p><input type="checkbox" name="remainme"/></p>Запомнить меня-->
+<!--    <p><input type="submit" value="Войти"/></p>-->
+    <hr align=left width="300px">
+    <p><a href="{{url_for('register')}}">Регистрация</a></p>
+    <p>logging:{{log}}
+</form>
+{% endblock %}
+

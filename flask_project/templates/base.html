@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" href="{{ url_for('static', filename ='css/styles.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    {% block title -%}
+    {% if title %}
+    <title>Про сайт - {{title}}</title>
+    {% else %}
+    <title>Сайт</title>
+    {% endif %}
+    {% endblock %}
+</head>
+<body>
+{% block content -%}
+{%- block mainmenu -%}
+<ul class="mainmenu">
+    {% for i in menu %}
+    <li><a href="{{i.url}}">{{i.title}}</a></li>
+    {% endfor -%}
+    <ul class="menus">
+    {% for i in menus %}
+    <li><a href="{{i.url}}">{{i.name}}</a></li>
+    {% endfor -%}
+</ul>
+</ul>
+{% endblock mainmenu -%}
+<div class="clear"></div>
+<div class="content"></div>
+{% if title -%}
+<h1>{{title}}</h1>
+    {% else -%}
+<h1> Мой сайт на flask</h1>
+{% endif -%}
+{% endblock -%}
+</div>
+</body>
+</html>

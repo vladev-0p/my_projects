@@ -6,7 +6,7 @@ pygame.init()
 
 # Определение цветов
 WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+BLUE = (0, 250, 255)
 BLACK = (60, 70, 50)
 YELLOW = (255, 207, 64)
 GREEN = (34, 139, 34)
@@ -27,7 +27,7 @@ burger_img = pygame.transform.scale(burger_img, (20, 20))
 rock_img = pygame.image.load("rock.png")
 rock_img = pygame.transform.scale(rock_img, (20, 20))
 
-
+start_time = pygame.time.get_ticks()
 # Определение класса игрока
 class Player:
     def __init__(self):
@@ -74,7 +74,7 @@ class Blockers:
 player = Player()
 burger_list = []
 rock_list = []
-for _ in range(random.randint(1, 3)):  # Создаем 3 камней
+for _ in range(random.randint(3, 5)):  # Создаем 3 камней
     rock = Blockers()
     rock_list.append(rock)
 
@@ -89,14 +89,24 @@ score = 0
 score_rock=0
 while True:
     screen.fill(BLACK)
+    # Рассчитываем прошедшее время
+    elapsed_time = pygame.time.get_ticks() - start_time
+
+    # Преобразуем время в секунды
+    seconds = elapsed_time // 1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             restart = True
+            start_time=pygame.time.get_ticks()
+
+
+    # Отображаем время на экране
 
     if restart:
+        seconds=0
         score = 0
         score_rock = 0
         player = Player()
@@ -145,15 +155,19 @@ while True:
             rock_list.remove(rock)
             score_rock -= 1
 
-    font = pygame.font.SysFont('callibri', 32)
-    score_count = font.render("Result:" + str(score), True, BLUE)
+    font = pygame.font.SysFont('callibri', 25)
+    text = font.render("{}".format(seconds), True, BLUE)
+    timer = font.render('Timer', True, BLUE)
+    score_count = font.render("Result : " + str(score) +'  ', True, BLUE)
     score_rocks = font.render(str(score_rock), True, RED )
     x=SCREEN_WIDTH // 2
-    screen.blit(score_count, (x, 25))
+    screen.blit(timer,(20,20))
+    screen.blit(text,(27+timer.get_width(),20))
+    screen.blit(score_count, (x-6, 25))
     screen.blit(score_rocks,(x+score_count.get_width(),25))
     # pygame.draw.rect(screen, YELLOW, (player.x, player.y, 20, 20))
     screen.blit(smile, (player.x,
                         player.y))  # отображение изображения вместо прямоугольника Заменяем переменную и название изображения на свои
     pygame.display.update()
 
-    clock.tick(10)  # cкорость движения
+    clock.tick(60)  # cкорость движения

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <link type="css/text" href="{{url_for('.static',filename='css/styles.css')}}" rel="
+        stylesheet">
+    <title>{{title}}</title>
+</head>
+<body>
+  <ul class="mainmenu" style="
+    List-style:none;
+    display:flex;
+    padding:20px;
+    background-color:blueviolet;
+     overflow:hidden;">
+
+    <li style="margin-right:40px;"><a href="{{url_for('new_index')}}" style="text-decoration:none;">Главная</a></li>
+    <li style="margin-right:40px; "><a href="{{url_for('new_register')}}" style="text-decoration:none;">Регистрация</a></li>
+  </ul>
+
+<div class="content">
+ {% block content -%}
+    {% endblock %}
+</div>
+</body>
+</html>
