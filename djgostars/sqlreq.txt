@@ -1,0 +1,56 @@
+SELECT: Используется для выбора данных из одной или нескольких таблиц
+SELECT column1, column2 FROM table_name WHERE condition;
+INSERT INTO: Используется для добавления новых записей в таблицу.
+INSERT INTO table_name (column1, column2, column3) VALUES (value1, value2, value3);
+UPDATE: Используется для обновления существующих записей в таблице.
+UPDATE table_name SET column1 = value1, column2 = value2 WHERE id = 3;
+
+DELETE: Используется для удаления записей из таблицы.
+DELETE FROM table_name WHERE condition;
+
+CREATE TABLE: Используется для создания новой таблицы в базе данных.
+CREATE TABLE table_name (column1 datatype, column2 datatype, ...);
+
+ALTER TABLE: Используется для изменения структуры таблицы (добавление, удаление, изменение столбцов).
+ALTER TABLE table_name ADD column_name datatype;
+
+DROP TABLE: Используется для удаления таблицы из базы данных.
+DROP TABLE table_name;
+
+CREATE DATABASE: Используется для создания новой базы данных.
+CREATE DATABASE database_name;
+
+USE DATABASE: Используется для выбора базы данных, с которой вы хотите работать.
+USE database_name;
+
+ФИЛЬТРЫ DJANGO.ORM
+
+exact: Проверяет точное совпадение значения поля.
+MyModel.objects.filter(field_name__exact=value)
+
+iexact: Проверяет точное совпадение значения поля без учета регистра.
+MyModel.objects.filter(field_name__iexact=value)
+
+contains: Проверяет, содержится ли заданная строка в значении поля.
+MyModel.objects.filter(field_name__contains=value)
+
+
+icontains: Проверяет, содержится ли заданная строка в значении поля без учета регистра.
+MyModel.objects.filter(field_name__icontains=value)
+
+in: Проверяет, содержится ли значение поля в заданном списке.
+MyModel.objects.filter(field_name__in=[value1, value2, value3])
+
+gt (больше), gte (больше или равно), lt (меньше): Проверяют соответственно, больше, больше или равно, или меньше значения.
+MyModel.objects.filter(field_name__gt=value)
+MyModel.objects.filter(field_name__gte=value)
+MyModel.objects.filter(field_name__lt=value)
+
+range: Проверяет, находится ли значение поля в заданном диапазоне.
+MyModel.objects.filter(field_name__range=(min_value, max_value))
+
+startswith, istartswith, endswith, iendswith: Проверяют, начинается ли или заканчивается ли значение поля заданной строкой.
+MyModel.objects.filter(field_name__startswith=value)
+MyModel.objects.filter(field_name__istartswith=value)
+MyModel.objects.filter(field_name__endswith=value)
+MyModel.objects.filter(field_name__iendswith=value)

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+Ай ди категории {{cat_id}}
+<p>
+Категория <h1>{{name}}</h1>
+
+    {% for i in data %}
+        <li> {{i.title}} </li>
+            <p> {{i.content}}</p>
+    {% endfor %}
+{% endblock %}

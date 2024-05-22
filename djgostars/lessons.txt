@@ -1,0 +1,147 @@
+# Урок 7
+Get Post запросы
+
+views.py
+ALLOWED_HOSTS = ['127.0.0.1']
+
+Обрабочик ошибок
+DEBUG  в settings FAlse
+и используем handler404 и тд и тп  создаем view page_not_found
+
+# Урок 9
+
+Шаблоны
+
+№ Урок 12
+Шаблонные теги for  и if
+{% название тега [параметры] %}
+
+<ul>
+{% for athlete in athlete_list %}
+    <li>{{ athlete.name }}</li>
+{% endfor %}
+</ul>
+
+
+{% for key, value in data.items %}
+    {{ key }}: {{ value }}
+{% endfor %}
+
+
+{% if athlete_list and coach_list %}
+    Both athletes and coaches are available.
+{% endif %}
+
+{% if not athlete_list %}
+    There are no athletes.
+{% endif %}
+
+#Урок 14 Расширение шаблонов
+Создади base.html
+используя extends на основе создли html about,contact,post,login
+Тег % include % позволяет подгрузить данные из другого html
+
+#Урок 15 статические файлы
+
+Режим отладкиDEBUG=TRUE
+static папки для каждого приложения отдельно
+статические файлы ищуться во всех каталогах static приложений
+и во всех возможных каталогах static внешних модулей
+
+
+Режим эксплуатацииDEBUG=FALSE
+статические файлы берутся из папки static, расположенной в каталоге всего проекта.
+python manage.py collectstatic -
+собирает все папки static каждого приложения в одну
+на одной вложенности с папкой djangoproject
+
+STATIC_URL - для статич файлов
+STATIC_ROOT - путь к общей папке статик
+STATICFILES_DIRS - список нестандартных путей к файлам
+
+python manage.py runserver --insecure - для DEBUG FALSE
+
+Урок 17
+Работа с БД
+model в MTV(MODEL,VIEW,TEMPLATES)
+DJANGO похож на SQLAlchemy
+конфигурация бд в словаре DATABASES settings.py
+приложение sqlitestudio
+создаем свой класс наследник models в models.py
+потом делаем миграции
+python manage.py makemigrations - создается  файл
+python manage.py sqlmigrate stars 0001  -  создается таблица
+python manage.py migrate - создается бд
+В терминале
+
+DJANGO ORM
+python  manage.py shell
+from stars.models import Stars
+СОЗДАНИЕ ЗАПИСИ
+
+Stars.objects.create(title = 'Джеки Чан' , content = 'Биография Джеки Чана')
+Stars(title = 'Джеки Чан' , content = 'Биография Джеки Чана')
+s1 = _
+s1.save()
+
+УДАЛЕНИЕ ЗАПИСИ
+
+Stars.objects.filter(id=3).delete()
+
+Изменение записи
+Изменить запись с id =2
+
+Stars.objects.filter(id=2).update(title ="Johnny Depp" , content = "Biography of Johnny Depp")
+
+ФИЛЬТРЫ DJANGO.ORM
+
+exact: Проверяет точное совпадение значения поля.
+MyModel.objects.filter(field_name__exact=value)
+
+iexact: Проверяет точное совпадение значения поля без учета регистра.
+MyModel.objects.filter(field_name__iexact=value)
+
+contains: Проверяет, содержится ли заданная строка в значении поля.
+MyModel.objects.filter(field_name__contains=value)
+
+Связывание таблиц
+
+значение параметра on_delete
+
+models.CASCADE- при удалении записи из первчиной модели(category)PK ,
+происходит удаление всех записей и вторичной модели(Women)
+
+models.Protect-  запрещает удаление записи  из первичной модели, если она используется (имеет FK)
+
+models.SET_NULL- при удалении записи первчной модели, Foreing key =NULL
+
+models.SET_DEFAULT - установка дефолтного значения
+models.DO_Nothing - при удалении записи в 1 категории,во 2 ниче не меняется
+
+category=models.ForeignKey('category',on_delete =models.Protect,  null=True)
+'category' - позволяется обращаться к модели категория вне зависит от расположения в коде
+получить список звезд по категории актеры из таблицы категории
+Stars.objects.filter(category__name='actor')
+
+Создание связи многие ко многим
+
+Создаем класс TagPost
+добавляем запись в Stars
+tags = models.ManytoManyField('TagPost',blank=true, related_name='tags')
+
+a=Stars.objects.get(pk=1)
+a-Jackie Chan
+Получаем 1 запись
+TagPost.objects.create(tag='Брюнет')1
+TagPost.objects.create(tag='Блондин'2
+TagPost.objects.create(tag='Актер')3
+TagPost.objects.create(tag='Спортсмен')4
+tag_br =TagPost.objects.all()[0] - берем зпись брюнет
+tag_ac= TagPost.objects.all()[3]-актер
+tag_br, tag_ac=TagPost.objects.filter(id__in=[0,3])
+применяем теги
+a.tags.set([tag_br,tag_ac])
+
+
+
+

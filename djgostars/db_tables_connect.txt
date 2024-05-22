@@ -1,0 +1,76 @@
+User
+python django orm
+есть модель личностей нужно добавить модель категорий и связать эти модели - таблицы по id
+на фронте сделать выдачу личностей по категориям
+
+ChatGPT
+Memory updated
+Для начала нужно создать модель для категорий. Вот как это можно сделать:
+
+from django.db import models
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+Memory updated
+Для начала нужно создать модель для категорий. Вот как это можно сделать:
+
+python
+Copy code
+from django.db import models
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+Затем необходимо добавить связь между моделью личностей и моделью категорий. Допустим, у каждой личности может быть только одна категория:
+
+python
+Copy code
+class Person(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+Если у личности может быть несколько категорий, используйте ManyToManyField вместо ForeignKey:
+
+python
+Copy code
+class Person(models.Model):
+    name = models.CharField(max_length=100)
+    categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.name
+Далее, чтобы вывести личности по категориям на фронтенде, вам нужно будет получить все категории и для каждой категории получить связанные с ней личности. Например, так:
+
+python
+Copy code
+from django.shortcuts import render
+from .models import Category, Person
+
+def people_by_category(request):
+    categories = Category.objects.all()
+    category_person_map = {}
+    for category in categories:
+        category_person_map[category] = Person.objects.filter(category=category)
+    
+    return render(request, 'your_template.html', {'category_person_map': category_person_map})
+А в вашем шаблоне (your_template.html) вы можете вывести личности по категориям, используя полученный словарь category_person_map:
+
+html
+Copy code
+{% for category, people in category_person_map.items %}
+    <h2>{{ category.name }}</h2>
+    <ul>
+    {% for person in people %}
+        <li>{{ person.name }}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}

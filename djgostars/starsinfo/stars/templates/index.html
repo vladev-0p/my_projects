@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<p style="align:center">Категории</p>
+{% include 'nav.html' %}
+
+
+<ul style="padding-left:20px;">
+{% for star in stars_info %}
+    {% if star.published %}
+
+    <li style=" padding-right:20px; list-style-type: none;">
+       <h1>{{star.title }}</h1>
+       <p>{{star.content }}</p>
+        <p class="link-read-post"><a href="post/{{star.id}}">Читать</a></p>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+<ul>
+    {% for star in db_stars %}
+    <li><a href="post/{{star.id}}">{{star.title}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

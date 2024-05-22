@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Добавить пост</h1>
+<form method="post">
+  {% csrf_token %}
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname"><br>
+    <label for="category">Category</label><br>
+    <input type="text" id="category" name="category"><br>
+    <label for="content">Content:</label><br>
+    <textarea cols="50" rows="10" id='content' name="content"></textarea><br>
+    <input style="margin-left:100px" type="submit" value="Send"><br>
+</form>
+
+{% endblock %}
